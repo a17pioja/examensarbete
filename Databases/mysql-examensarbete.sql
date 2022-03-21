@@ -8,9 +8,8 @@ Name varchar(25),
 primary key(ID)
 )engine=innodb;
 
-
-use a17piojaExamensarbete;
-insert into mytable(ID, Name) values (1, "John");
+insert into mytable(ID, Name) values (1, "James Smith");
+insert into mytable(ID, Name) values (2, "Maria Garcia");
+insert into mytable(ID, Name) values (3, "Mary Smith");
 
 Select * from mytable;
-
