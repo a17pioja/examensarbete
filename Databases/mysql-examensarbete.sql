@@ -2,24 +2,35 @@ drop database if exists a17piojaExamensarbete;
 create database a17piojaExamensarbete;
 use a17piojaExamensarbete;
 
-create table mytable(
-ID int NOT NULL AUTO_INCREMENT,
-Name varchar(25),
-primary key(ID)
+create table customers(
+CustomerID int NOT NULL AUTO_INCREMENT,
+CustomerFirstName varchar(32),
+CustomerLastName varchar(32),
+CustomerCity varchar(32),
+CustomerCountry varchar(32),
+CustomerAddress varchar(64),
+primary key(CustomerID)
 )engine=innodb;
-
-insert into mytable(Name) values ("James Smith");
-insert into mytable(Name) values ("Maria Garcia");
-insert into mytable(Name) values ("Mary Smith");
-
-Select * from mytable;
 
 create table products(
-ProductID int(12),
+ProductID int NOT NULL AUTO_INCREMENT,
 ProductName varchar(128),
 ProductPrice float,
-ProductWeight float,
+ProductLocation varchar(32),
 ProductDesc varchar(512),
-ProductCategoryID int(12),
+ProductDate datetime,
 primary key(ProductID)
 )engine=innodb;
+
+create table orders(
+OrderID int NOT NULL AUTO_INCREMENT,
+OrderUserID int NOT NULL,
+OrderProductID int NOT NULL,
+OrderName varchar(32),
+foreign key (OrderUserID) references customers(CustomerID),
+foreign key (OrderProductID) references Products(ProductID),
+primary key(OrderID)
+)engine=innodb;
+
+insert into Customers(CustomerFirstName, CustomerLastName, CustomerCity, CustomerCountry, CustomerAddress) values ('Test', 'Testsson', 'Texas','USA', 'West St 1901');
+select * from customers;
