@@ -3,13 +3,23 @@ create database a17piojaExamensarbete;
 use a17piojaExamensarbete;
 
 create table mytable(
-ID integer,
+ID int NOT NULL AUTO_INCREMENT,
 Name varchar(25),
 primary key(ID)
 )engine=innodb;
 
-insert into mytable(ID, Name) values (1, "James Smith");
-insert into mytable(ID, Name) values (2, "Maria Garcia");
-insert into mytable(ID, Name) values (3, "Mary Smith");
+insert into mytable(Name) values ("James Smith");
+insert into mytable(Name) values ("Maria Garcia");
+insert into mytable(Name) values ("Mary Smith");
 
 Select * from mytable;
+
+create table products(
+ProductID int(12),
+ProductName varchar(128),
+ProductPrice float,
+ProductWeight float,
+ProductDesc varchar(512),
+ProductCategoryID int(12),
+primary key(ProductID)
+)engine=innodb;
