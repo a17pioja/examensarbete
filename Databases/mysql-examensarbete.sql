@@ -17,7 +17,6 @@ ProductID int NOT NULL AUTO_INCREMENT,
 ProductName varchar(128),
 ProductPrice float,
 ProductLocation varchar(32),
-ProductDesc varchar(512),
 ProductDate datetime,
 primary key(ProductID)
 )engine=innodb;
@@ -32,5 +31,10 @@ foreign key (OrderProductID) references Products(ProductID),
 primary key(OrderID)
 )engine=innodb;
 
+insert into products(ProductName, ProductPrice, ProductLocation,ProductDate) values ("Testband", 100, "Stockholm", "2022-05-25 10:30:10");
 insert into Customers(CustomerFirstName, CustomerLastName, CustomerCity, CustomerCountry, CustomerAddress) values ('Test', 'Testsson', 'Texas','USA', 'West St 1901');
+insert into orders(orderuserid, orderproductid, ordername) values (1, 1, "testorder");
+
 select * from customers;
+select * from products;
+select * from orders;
