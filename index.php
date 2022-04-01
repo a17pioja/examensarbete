@@ -28,6 +28,7 @@
                 }
 
                 CreateCustomersMySQL( $connectMysql);
+                CreateProductsMySQL( $connectMysql);
                 echo "MySQL!";
             }
             
@@ -61,6 +62,17 @@
                 $querystring="insert into Customers(CustomerFirstName, CustomerLastName, CustomerCity, CustomerCountry, 
                 CustomerAddress) values ('" .$firstNames[rand(0,5)]."','".$lastNames[rand(0,5)]."','".$cities[rand(0,5)].
                 "','".$countries[rand(0,5)]."','".$addresses[rand(0,5)]."');";
+
+                $stmt = $connectMysql->prepare($querystring);
+                $stmt->execute();
+            }
+
+            function CreateProductsMySQL($connectMysql){
+                $productNames = array("MetalDeth", "Excavators", "Pierce the Horizon in Reverse","Deck Neep", "Look365", "Saylor Twift");
+                $productLocations = array("Stochholm", "Warsaw", "Tokyo", "Madrid", "Cario", "Prague");
+                $productDates = array("2022-05-25 10:30:10","1988-01-15 08:50:00","2005-12-01 23:30:00","2012-05-21 11:50:00", "2032-01-01 21:50:00", "2011-04-23 04:50:00");
+                $querystring="insert into products(ProductName, ProductPrice, ProductLocation,ProductDate) values ('".$productNames[rand(0,5)]."',".rand(9,999).
+                ",'".$productLocations[rand(0,5)]."','".$productDates[rand(0,5)]."')";
 
                 $stmt = $connectMysql->prepare($querystring);
                 $stmt->execute();
