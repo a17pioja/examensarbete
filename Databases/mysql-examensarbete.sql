@@ -3,38 +3,40 @@ create database a17piojaExamensarbete;
 use a17piojaExamensarbete;
 
 create table customers(
-CustomerID int NOT NULL AUTO_INCREMENT,
-CustomerFirstName varchar(32),
-CustomerLastName varchar(32),
-CustomerCity varchar(32),
-CustomerCountry varchar(32),
-CustomerAddress varchar(64),
-primary key(CustomerID)
+customerid int NOT NULL AUTO_INCREMENT,
+customerfirstname varchar(32),
+customerlastname varchar(32),
+customercity varchar(32),
+customercountry varchar(32),
+customeraddress varchar(64),
+primary key(customerid)
 )engine=innodb;
 
 create table products(
-ProductID int NOT NULL AUTO_INCREMENT,
-ProductName varchar(128),
-ProductPrice float,
-ProductLocation varchar(32),
-ProductDate datetime,
-primary key(ProductID)
+productid int NOT NULL AUTO_INCREMENT,
+productname varchar(128),
+productprice float,
+productlocation varchar(32),
+productdate datetime,
+primary key(productid)
 )engine=innodb;
 
 create table orders(
-OrderID int NOT NULL AUTO_INCREMENT,
-OrderUserID int NOT NULL,
-OrderProductID int NOT NULL,
-OrderName varchar(32),
-foreign key (OrderUserID) references customers(CustomerID),
-foreign key (OrderProductID) references Products(ProductID),
-primary key(OrderID)
+orderid int NOT NULL AUTO_INCREMENT,
+orderuserid int NOT NULL,
+orderproductid int NOT NULL,
+ordername varchar(32),
+foreign key (orderuserid) references customers(customerid),
+foreign key (orderproductid) references Products(productid),
+primary key(orderid)
 )engine=innodb;
 
-insert into products(ProductName, ProductPrice, ProductLocation,ProductDate) values ("Testband", 100, "Stockholm", "2022-05-25 10:30:10");
-insert into Customers(CustomerFirstName, CustomerLastName, CustomerCity, CustomerCountry, CustomerAddress) values ('Test', 'Testsson', 'Texas','USA', 'West St 1901');
+insert into products(productname, productprice, productlocation,productdate) values ("Testband", 100, "Stockholm", "2022-05-25 10:30:10");
+insert into Customers(customerfirstname, customerlastname, customercity, customercountry, customeraddress) values ('Test', 'Testsson', 'Texas','USA', 'West St 1901');
 insert into orders(orderuserid, orderproductid, ordername) values (1, 1, "testorder");
 
 select * from customers;
 select * from products;
 select * from orders;
+
+SELECT COUNT(*) FROM products 
