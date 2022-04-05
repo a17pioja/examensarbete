@@ -57,13 +57,11 @@
                             $productLocations = array("Stochholm", "Warsaw", "Tokyo", "Madrid", "Cario", "Prague");
                             $productDates = array("2022-05-25 10:30:10","1988-01-15 08:50:00","2005-12-01 23:30:00","2012-05-21 11:50:00", "2032-01-01 21:50:00", "2011-04-23 04:50:00");
                             
-                            $stmt = $conn->query("SELECT customerid FROM customers  Order by customerid desc LIMIT 1");
-                            $customersAmount = $stmt->fetch();
-                            $customersAmount = $customersAmount['customerid'];    
+                            $stmt = $conn->query('SELECT * FROM customers');
+                            $customersAmount = $stmt->rowCount();
 
-                            $stmt = $conn->query("SELECT productid FROM products  Order by productid desc LIMIT 1");
-                            $ProductsAmount = $stmt->fetch();
-                            $ProductsAmount = $ProductsAmount['productid'];     
+                            $stmt = $conn->query('SELECT * FROM products');
+                            $ProductsAmount = $stmt->rowCount();  
 
                             while($customersAmount<100){
                                 CreateCustomers($conn, $customerFirstNames, $customerLastNames, $customerCities, $customerCountries, $CustomerAddresses);
@@ -109,7 +107,7 @@
                             else{
                                 echo "something went wrong when choosing which file conn file to include in CreateOrder";
                             }
-                            
+
                             $startTime = microtime(true);
 
                             $querystring="insert into orders(orderuserid, orderproductid, ordername) values (1, 1, 'testorderwebb')";
