@@ -98,6 +98,7 @@
                             
                         }
                         function CreateOrder($dbmsType){
+                            
                             if($dbmsType=="mysql"){
                                 include "PHP/connMysql.php";
                             }
@@ -106,17 +107,39 @@
                             }
                             else{
                                 echo "something went wrong when choosing which file conn file to include in CreateOrder";
+                                return;
                             }
 
-                            $startTime = microtime(true);
+                            
+                            $filename = 'measurement.csv';
+                            $myCsv = fopen($filename, 'w');
+                            if ($myCsv === false) {
+                                die('Error opening the file ' . $filename);
+                            }
 
-                            $querystring="insert into orders(orderuserid, orderproductid, ordername) values (1, 1, 'testorderwebb')";
-                            $stmt = $conn->prepare($querystring);
-                            $stmt->execute();
+                            $data = array(
+                                'Time'
+                            );
+                            $i = 0;
+                            while($i<3){
+                                $startTime = microtime(true);
 
-                            $timeElapsed = microtime(true) - $startTime;
-                            echo "<b>Time elapsed: </b>".$timeElapsed;
+                                $querystring="insert into orders(orderuserid, orderproductid, ordername) values (1, 1, 'testorderwebb')";
+                                $stmt = $conn->prepare($querystring);
+                                $stmt->execute();
+
+                                $timeElapsed = microtime(true) - $startTime;
+                                echo "<b>Time elapsed: </b>".$timeElapsed * 1000.,"ms</br>";
+                                array_push($data, $timeElapsed);
+                                $i++;
+                            }
+
+                            foreach ($data as $row) {
+                                fputcsv($myCsv,explode(',',$row));
+                            }
+                            fclose($myCsv);
                         }
+                        
                     ?>
                 </div>
                 
