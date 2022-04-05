@@ -99,15 +99,16 @@
                             
                             
                         }
+
                         function CreateOrder(){
                             include "PHP/connMysql.php";
-                            $i = 0;
+                            
                             $startTime = microtime(true);
-                            $querystring="insert into orders(orderuserid, orderproductid, ordername) values (1, 1, 'testorderwebb')";
 
+                            $querystring="insert into orders(orderuserid, orderproductid, ordername) values (1, 1, 'testorderwebb')";
                             $stmt = $conn->prepare($querystring);
                             $stmt->execute();
-                            
+
                             $timeElapsed = microtime(true) - $startTime;
                             echo "<b>Time elapsed: </b>".$timeElapsed;
                         }
