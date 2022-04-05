@@ -27,13 +27,13 @@
                         }
 
                         if(isset($_POST['createOrderMysqlBtn'])) {
-                            $dbmsType = "Mysql";
-                            CreateOrder();
+                            $dbmsType = "mysql";
+                            CreateOrder($dbmsType);
                         }
 
                         if(isset($_POST['createOrderPgsqlBtn'])) {
                             $dbmsType = "pgsql";
-                            CreateOrder();
+                            CreateOrder($dbmsType);
                         }
 
                         function EnableDB($dbmsType) {
@@ -45,7 +45,7 @@
                                 include "PHP/connPgsql.php";
                             }
                             else{
-                                echo "something went wrong when choosing which file conn file to include";
+                                echo "something went wrong when choosing which file conn file to include in EnableDB";
                             }
                             
                             $customerFirstNames = array("Luke", "Danny", "Mike", "Maria", "Julia", "Taylor");
@@ -99,9 +99,16 @@
                             
                             
                         }
-
-                        function CreateOrder(){
-                            include "PHP/connMysql.php";
+                        function CreateOrder($dbmsType){
+                            if($dbmsType=="mysql"){
+                                include "PHP/connMysql.php";
+                            }
+                            else if($dbmsType=="pgsql"){
+                                include "PHP/connPgsql.php";
+                            }
+                            else{
+                                echo "something went wrong when choosing which file conn file to include in CreateOrder";
+                            }
                             
                             $startTime = microtime(true);
 
@@ -115,12 +122,10 @@
                     ?>
                 </div>
                 
-                
-            
                 <form method="post">
-                    <div class="db-menu">
-                    <input type="submit" name="enableMysqlBtn" class="button" value="Enable MySQL" />
-                    <input type="submit" name="createOrderMysqlBtn" class="button" value="Create an order for MySQL" />
+                        <div class="db-menu">
+                        <input type="submit" name="enableMysqlBtn" class="button" value="Enable MySQL" />
+                        <input type="submit" name="createOrderMysqlBtn" class="button" value="Create an order for MySQL" />
                     </div>
 
                     <div class="db-menu">
