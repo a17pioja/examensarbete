@@ -45,7 +45,7 @@
                                 include "PHP/connPgsql.php";
                             }
                             else{
-                                echo "something went wrong when choosing which file conn file to include in EnableDB";
+                                echo "something went wrong when choosing which conn file to include in EnableDB";
                             }
                             
                             $customerFirstNames = array("Luke", "Danny", "Mike", "Maria", "Julia", "Taylor");
@@ -99,44 +99,43 @@
                         }
                         function CreateOrder($dbmsType){
                             
-                            if($dbmsType=="mysql"){
-                                include "PHP/connMysql.php";
-                            }
-                            else if($dbmsType=="pgsql"){
-                                include "PHP/connPgsql.php";
-                            }
-                            else{
-                                echo "something went wrong when choosing which file conn file to include in CreateOrder";
-                                return;
-                            }
-
-                            
                             $filename = 'measurement.csv';
-                            $myCsv = fopen($filename, 'w');
+                            $myCsv = fopen($filename, 'a');
                             if ($myCsv === false) {
                                 die('Error opening the file ' . $filename);
                             }
 
-                            $data = array(
-                                'Time'
-                            );
-                            $i = 0;
-                            while($i<3){
+                            $measurements = array();
+
+                            $i=0;
+                            while($i<10){
+                                
+                                sleep(0.1);
                                 $startTime = microtime(true);
 
+                                if($dbmsType=="mysql"){
+                                    include "PHP/connMysql.php";
+                                }
+                                else if($dbmsType=="pgsql"){
+                                    include "PHP/connPgsql.php";
+                                }
+                                else{
+                                    echo "something went wrong when choosing which conn file to include in CreateOrder";
+                                    return;
+                                }
+                                
                                 $querystring="insert into orders(orderuserid, orderproductid, ordername) values (1, 1, 'testorderwebb')";
                                 $stmt = $conn->prepare($querystring);
                                 $stmt->execute();
 
-                                $timeElapsed = microtime(true) - $startTime;
-                                echo "<b>Time elapsed: </b>".$timeElapsed * 1000.,"ms</br>";
-                                array_push($data, $timeElapsed);
+                                $timeElapsed = (microtime(true) - $startTime)*1000;
+                                $conn = null;
+                                echo "<b>Time elapsed: </b>".$timeElapsed."ms</br>";
                                 $i++;
                             }
-
-                            foreach ($data as $row) {
-                                fputcsv($myCsv,explode(',',$row));
-                            }
+                            
+                            array_push($measurements, $timeElapsed);
+                            fputcsv($myCsv, $measurements);
                             fclose($myCsv);
                         }
                         
