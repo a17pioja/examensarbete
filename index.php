@@ -1,13 +1,8 @@
 <html>
     <head>
         <title>Examensarbete</title>
-
         <link rel="stylesheet" href="css/style.css">
-
-        <!--
-        <script src="Js/MyScript.js"></script>
-        <script src="Js/jquery-3.6.0.min.js"></script>
-        -->
+        
     </head>
     <body>
         <div class="container">
