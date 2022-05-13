@@ -187,9 +187,9 @@
 
                     function CreateOrder($dbmsType){
                         set_time_limit(9999999);
-                        $sleepAmount = 0;
+                        $sleepAmount = 0; //milliseconds
 
-                        $filename = "measurement_". $dbmsType ."_". CreateRandomString(4).".csv";
+                        $filename = "many-conn_".$sleepAmount."ms_". $dbmsType ."_". CreateRandomString(4).".csv";
                         $myCsv = fopen($filename, "a");
                         if ($myCsv === false) {
                             die("Error opening the file " . $filename);
@@ -197,10 +197,10 @@
 
                         $i = 0;
                         $startTimeTotal = microtime(true);
-                        while ($i < 10) {
-                            $startTime = microtime(true);
+                        while ($i < 1000) {
                             $measurements = [];
-                            usleep($sleepAmount);
+                            usleep($sleepAmount*1000);
+                            $startTime = microtime(true);
 
                             if ($dbmsType == "mysql") {
                                 include "PHP/connMysql.php";
@@ -218,7 +218,7 @@
                             $conn = null;
                             $timeElapsed = (microtime(true) - $startTime) * 1000;
                             
-                            echo "<b>Time elapsed here: </b>" . $timeElapsed . "ms</br>";
+                            echo "<b>Time elapsed: </b>" . $timeElapsed . "ms</br>";
                             array_push($measurements, $timeElapsed);
                             fputcsv($myCsv, $measurements);
                             $i++;
@@ -228,8 +228,6 @@
                             $measurements = [];
                             array_push($measurements, $timeElapsedTotal);
                             fputcsv($myCsv, $measurements);
-                            
-                            
                             fclose($myCsv);
                             set_time_limit(60);
                         }
