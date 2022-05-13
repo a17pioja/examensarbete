@@ -4,10 +4,10 @@
     $dbuser = "postgres";
     $dbpass = "kurwa";
 
-try{
-    $conn = new PDO('pgsql:host='.$dbhost.'; dbname='.$dbname, $dbuser, $dbpass);
-}
-catch(PDOException $connectionError){
-    echo "Failed to connect to database: ".$connectionError->getMessage();
-}
+    try{
+        $conn = new PDO('pgsql:host='.$dbhost.'; dbname='.$dbname, $dbuser, $dbpass);
+    }
+    catch(PDOException $connectionError){
+        echo "Failed to connect to database: ".$connectionError->getMessage();
+    }
 ?>
