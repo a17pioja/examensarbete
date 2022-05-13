@@ -224,9 +224,11 @@
                             $i++;
                             
                         }
-                            array_push($measurements, $timeElapsed);
+                        $timeElapsedTotal = (microtime(true) - $startTimeTotal) * 1000;
+                            $measurements = [];
+                            array_push($measurements, $timeElapsedTotal);
                             fputcsv($myCsv, $measurements);
-                            $timeElapsedTotal = (microtime(true) - $startTimeTotal) * 1000;
+                            
                             
                             fclose($myCsv);
                             set_time_limit(60);
